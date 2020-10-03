@@ -1,0 +1,29 @@
+{
+  "name": "issue-handler-api",
+  "version": "1.0.0",
+  "description": "Api projecto to use in a issue handler",
+  "main": "index.js",
+  "scripts": {
+    "apidoc": "apidoc -i ./core -o ./documentation/apidoc",
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "issue",
+    "control",
+    "node",
+    "js"
+  ],
+  "author": "Miguel Angel Castro Edreira",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.4",
+    "winston": "^3.3.3"
+  }
+}
