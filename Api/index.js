@@ -7,6 +7,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
 const logger = require('./core/utils/logger');
+const databasePool = require('./core/utils/db-pool');
 
 const port = (process.env.PORT || 3000);
 const app = express();
@@ -39,10 +40,17 @@ app.use((err, req, res, next) => {
 /**
  * Routes
  */
-//app.use(nexus, routers.userRouter);
+app.use(nexus, routers.userRouter);
 
   //Init server
-(function init() {
+(async function init() {
+    try {
+        await databasePool.connect();
+    } catch (e) {
+        console.error(e);
+        process.exit(1);
+    }
+    
     app.listen(port, () => {
         logger.info("Start server");
         console.log(`The backend server is running in ${port}. Have a nice day`);
