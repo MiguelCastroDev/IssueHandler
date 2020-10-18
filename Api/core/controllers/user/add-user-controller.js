@@ -9,7 +9,7 @@ const mysqlPool = require('../../utils/db-pool');
  * @param {*} next 
  */
 async function addUser(req, res, next){
-    var result = null;
+    let result = null;
     const {user, email, password} = {...req.body};
     const newUser = {
         user : user,
@@ -30,9 +30,15 @@ async function addUser(req, res, next){
         }
     } else {
         try {
-            const connection = await mysqlPool.getConnection();
+            let connection = await mysqlPool.getConnection();
+            connection.query(query, [user, email, password]);
             const insertion = await connection.query(query, [user, email, password]);
             connection.release();
+            if (insertion.affectedRows > 0) {
+                result.status = 201;
+                result.message = `El usuario ${user} se ha insertado correctamente`;
+            }
+
             res.status(result.code).send(result.message);
         } catch (error) {
             result = {
