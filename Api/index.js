@@ -41,6 +41,7 @@ app.use((err, req, res, next) => {
  * Routes
  */
 app.use(nexus, routers.userRouter);
+app.use(nexus, routers.issueRouter);
 
   //Init server
 (async function init() {
