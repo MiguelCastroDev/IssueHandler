@@ -1,6 +1,7 @@
 'use strict'
 
 const mysqlPool = require('../../utils/db-pool');
+const bcrypt = require('bcrypt');
 
 /**
  * Añade un usuario a la base de datos
@@ -9,43 +10,39 @@ const mysqlPool = require('../../utils/db-pool');
  * @param {*} next 
  */
 async function addUser(req, res, next){
-    let result = null;
+    let result = {
+        status : 400,
+        message : 'Error in request',
+    };
     const {user, email, password} = {...req.body};
-    const newUser = {
-        user : user,
-        email : email,
-        password : password,
-        rol : 0,
-        deactive_date : null
-    }
-    const rol = 0;
+    const defaultRol = 0;
 
-    const query = `INSERT INTO users (user, email, password, rol) VALUES (? , ? , ?, ${rol})`;
+    const query = `INSERT INTO users (user, email, password, rol) VALUES (? , ? , ?, ${defaultRol})`;
 
     if (!user || !email || !password)
     {
         result = {
-            code: 400,
+            status: 400,
             message: 'Parameters incorrect'
         }
     } else {
         try {
             let connection = await mysqlPool.getConnection();
-            connection.query(query, [user, email, password]);
-            const insertion = await connection.query(query, [user, email, password]);
+            let hashPassword = await bcrypt.hash(password, 10);
+            const insertion = await connection.query(query, [user, email, hashPassword]);
             connection.release();
-            if (insertion.affectedRows > 0) {
+            if (insertion[0].affectedRows > 0) {
                 result.status = 201;
                 result.message = `El usuario ${user} se ha insertado correctamente`;
             }
 
-            res.status(result.code).send(result.message);
+            res.status(result.status).send(result.message);
         } catch (error) {
             result = {
-                code: 400,
-                message: `addUser: ${error}`
+                status: 400,
+                message: `Error (addUser): ${error}`
             }
-            res.status(result.code).send(result.message);
+            res.status(result.status).send(result.message);
         }
 
     }
