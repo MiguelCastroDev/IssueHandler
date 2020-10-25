@@ -25,7 +25,7 @@ describe('Grupo de peticiones de incidencias', ()=> {
     describe('GET /user/:id', ()=> {
         it('Obtenemos una incidencia concreta', ()=> {
             return chai.request(app)
-                .get('/api/issue/2')
+                .get('/api/issue/1')
                 .then((res)=> {
                     expect(res.body).to.have.property('id').to.be.equal(1);
                 }, (err) => {
