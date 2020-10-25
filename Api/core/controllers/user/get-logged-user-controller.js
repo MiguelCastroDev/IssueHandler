@@ -2,6 +2,7 @@
 
 const mysqlPool = require('../../utils/db-pool');
 const bcrypt = require('bcrypt');
+const { MESSAGES, getMessage } = require('../../utils/messages/text-messages');
 
 /**
  * Busca un usuario por su email, y a continuación comprueba si su password coincide
@@ -11,6 +12,7 @@ const bcrypt = require('bcrypt');
  */
 async function getLoggedUserController(req, res, next){
     let user = null;
+    let result = getMessage(200, MESSAGES.ERROR.DEFAULT);
     const {email, password} = {...req.body};
     const query = 'SELECT * FROM users WHERE email = ?';
 
@@ -23,23 +25,25 @@ async function getLoggedUserController(req, res, next){
 
             if ((user!=null)) {
                 if (await bcrypt.compare(password,user[0].password)) {
+                    result = getMessage(200, MESSAGES.SUCCESS.USER.GETUSERSUCCESSTEXT);
                     //Devolvemos el objeto usuario sin password
                     user[0].password = '';
                     res.status(200).send(user[0]);
                 }
                 else {
-                    res.status(401).send('Password incorrecta');
+                    result = getMessage(401, MESSAGES.ERROR.PASSWORD.WRONGPASSWORDTEXT);
                 }
             } else {
-                res.status(404).send('No existe ningún usuario con ese correo');
+                result = getMessage(404, MESSAGES.ERROR.USER.GETUSERWITHEMAILERRORTEXT);
             }
         } catch(e){
-            console.log(e);
             res.status(404).send(e);
         }
     } else {
-        res.status(400).send('No se han introducido datos');
+        result = getMessage(400, MESSAGES.ERROR.DEFAULT.INCORRECTPARAMETERSTEXT);
     }
+
+    res.status(result.status).send(result.message);
 }
 
 module.exports = getLoggedUserController;

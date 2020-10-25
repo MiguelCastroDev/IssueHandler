@@ -7,7 +7,8 @@ const MESSAGES = {
             ADDUSERERRORTEXT : 'No se ha podido añadir el usuario',
             GETUSERERRORTEXT : 'No se encuentra el usuario con los parámetros indicados',
             GETUSERSLISTERRORTEXT : 'No existen usuarios',
-            GETSPECIFICUSERSLISTERRORTEXT : 'No existen usuarios con los parámetros indicados'
+            GETSPECIFICUSERSLISTERRORTEXT : 'No existen usuarios con los parámetros indicados',
+            GETUSERWITHEMAILERRORTEXT: 'No existe ningún usuario con ese correo'
         },
         ISSUE : {
             ADDISSUEERRORTEXT : 'No se ha podido añadir el incidente',
@@ -17,15 +18,20 @@ const MESSAGES = {
         },
         REQUESTPARAMETERS : {
             INCORRECTPARAMETERSTEXT : 'Parametros incorrectos'
+        },
+        PASSWORD : {
+            WRONGPASSWORDTEXT : 'Password incorrecto'
         }
     },
     SUCCESS : {
         DEFAULT : 'Be water',
         USER : {
             ADDUSERSUCCESSTEXT : 'Usuario añadido correctamente',
+            GETUSERSUCCESSTEXT : 'Usuario obtenido correctamente'
         },
         ISSUE : {
             ADDISSUEUCCESSTEXT : 'Incidencia añadida correctamente',
+            GETISSUESUCCESSTEXT : 'Incidencia obtenida correctamente'
         }
     },
     CODES : {
