@@ -2,6 +2,7 @@
 
 const mysqlPool = require('../../utils/db-pool');
 const bcrypt = require('bcrypt');
+const { MESSAGES, getMessage } = require('../../utils/messages/text-messages');
 
 /**
  * Añade un usuario a la base de datos
@@ -10,10 +11,8 @@ const bcrypt = require('bcrypt');
  * @param {*} next 
  */
 async function addUser(req, res, next){
-    let result = {
-        status : 400,
-        message : 'Error in request',
-    };
+    let result = getMessage(200, MESSAGES.ERROR.DEFAULT);
+
     const {user, email, password} = {...req.body};
     const defaultRol = 0;
 
@@ -21,10 +20,7 @@ async function addUser(req, res, next){
 
     if (!user || !email || !password)
     {
-        result = {
-            status: 400,
-            message: 'Parameters incorrect'
-        }
+        result = getMessage(400, MESSAGES.ERROR.REQUESTPARAMETERS.INCORRECTPARAMETERSTEXT);
     } else {
         try {
             let connection = await mysqlPool.getConnection();
@@ -32,19 +28,12 @@ async function addUser(req, res, next){
             const insertion = await connection.query(query, [user, email, hashPassword]);
             connection.release();
             if (insertion[0].affectedRows > 0) {
-                result.status = 201;
-                result.message = `El usuario ${user} se ha insertado correctamente`;
+                result = getMessage(201, MESSAGES.SUCCESS.USER.ADDUSERSUCCESSTEXT);
             }
-
-            res.status(result.status).send(result.message);
         } catch (error) {
-            result = {
-                status: 400,
-                message: `Error (addUser): ${error}`
-            }
-            res.status(result.status).send(result.message);
+            result = getMessage(400, MESSAGES.ERROR.USER.ADDUSERERRORTEXT);
         }
-
+        res.status(result.status).send(result.message);
     }
 }
 
