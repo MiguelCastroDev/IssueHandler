@@ -3,6 +3,7 @@
 const mysqlPool = require('../../utils/db-pool');
 const bcrypt = require('bcrypt');
 const { MESSAGES, getMessage } = require('../../utils/messages/text-messages');
+const logger = require('../../utils/logger');
 
 /**
  * Añade un usuario a la base de datos
@@ -18,6 +19,8 @@ async function addUser(req, res, next){
 
     const query = `INSERT INTO users (user, email, password, rol) VALUES (? , ? , ?, ${defaultRol})`;
 
+    logger.info(`>Add user:${user}`);
+
     if (!user || !email || !password)
     {
         result = getMessage(400, MESSAGES.ERROR.REQUESTPARAMETERS.INCORRECTPARAMETERSTEXT);
@@ -28,9 +31,11 @@ async function addUser(req, res, next){
             const insertion = await connection.query(query, [user, email, hashPassword]);
             connection.release();
             if (insertion[0].affectedRows > 0) {
+                logger.info(`>>>${user} add succesfully`);
                 result = getMessage(201, MESSAGES.SUCCESS.USER.ADDUSERSUCCESSTEXT);
             }
         } catch (error) {
+            logger.info(`>>>${user} add error`);
             result = getMessage(400, MESSAGES.ERROR.USER.ADDUSERERRORTEXT);
         }
         res.status(result.status).send(result.message);

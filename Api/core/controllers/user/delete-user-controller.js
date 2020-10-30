@@ -2,6 +2,7 @@
 
 const mysqlPool = require('../../utils/db-pool');
 const { MESSAGES, getMessage } = require('../../utils/messages/text-messages');
+const logger = require('../../utils/logger');
 
 /**
  * Id de usuario el cual se DESACTIVARA, no realizamos una eliminación real para mantener

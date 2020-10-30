@@ -2,7 +2,7 @@
 
 # Issues handler
 
-_Título provisional, pendiente de plantear una mejor
+Título provisional, pendiente de plantear una mejor
 
 ## Introducción 🚀
 

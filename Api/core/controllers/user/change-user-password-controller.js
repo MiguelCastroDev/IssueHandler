@@ -2,6 +2,7 @@
 
 const mysqlPool = require('../../utils/db-pool');
 const { MESSAGES, getMessage } = require('../../utils/messages/text-messages');
+const logger = require('../../utils/logger');
 
 /**
  * Cambia la contraseña de un usuario

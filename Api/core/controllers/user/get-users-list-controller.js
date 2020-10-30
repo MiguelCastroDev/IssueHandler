@@ -1,6 +1,8 @@
 'use strict'
 
 const mysqlPool = require('../../utils/db-pool');
+const { MESSAGES, getMessage } = require('../../utils/messages/text-messages');
+const logger = require('../../utils/logger');
 
 /**
  * Obtiene el listado de usuarios
@@ -10,6 +12,7 @@ const mysqlPool = require('../../utils/db-pool');
  */
 async function getUsersList(req, res, next){
     let userList = null;
+    logger.info(`>Get user list`);
 
     try{
         const connection = await mysqlPool.getConnection();
@@ -18,12 +21,14 @@ async function getUsersList(req, res, next){
         userList = result[0];
 
         if (userList!=null) {
+            logger.info(`>>>Get user list successfully`);
             res.status(200).send(userList);
         } else {
-            res.status(404).send('No se encuentran usuarios registrados');
+            logger.info(`>>>${email} is not registered`);
+                result = getMessage(404, MESSAGES.ERROR.USER.GETUSERSLISTERRORTEXT);
         }
     } catch(e){
-        console.log(e);
+        logger.info(`>>>>getUsersList: error`);
         res.status(404).send(e);
     }
 }
