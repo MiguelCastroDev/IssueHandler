@@ -16,6 +16,12 @@ const MESSAGES = {
             GETISSUESLISTERRORTEXT : 'No existen incidentes',
             GETSPECIFICISSUESLISTERRORTEXT : 'No existen incidentes con los parámetros indicados'
         },
+        LOGIN : {
+            ERRORLOGINTEXT : 'Error en el proceso de login',
+            INCONSISTENTDATATEXT : 'Existe algún error de datos en la base de datos',
+            ACCOUNTNOTACTIVETEXT : 'La cuenta no ha sido activada',
+            INCORRECTPASSWORDTEXT : 'Contraseña incorrecta'
+        },
         REQUESTPARAMETERS : {
             INCORRECTPARAMETERSTEXT : 'Parametros incorrectos'
         },
@@ -25,6 +31,9 @@ const MESSAGES = {
     },
     SUCCESS : {
         DEFAULT : 'Be water',
+        LOGIN : {
+            SUCCESSLOGINTEXT : 'El usuario se ha logueado correctamente'
+        },
         USER : {
             ADDUSERSUCCESSTEXT : 'Usuario añadido correctamente',
             GETUSERSUCCESSTEXT : 'Usuario obtenido correctamente'

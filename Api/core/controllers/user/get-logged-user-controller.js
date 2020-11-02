@@ -1,9 +1,23 @@
-'use strict'
+'use strict';
 
-const mysqlPool = require('../../utils/db-pool');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { MESSAGES, getMessage } = require('../../utils/messages/text-messages');
+const mysqlPool = require('../../utils/db-pool');
 const logger = require('../../utils/logger');
+
+function validateData(email) {
+    logger.info(`>>>ValidateData`);
+
+    let result = false;
+
+    if (email !== null) {
+        result = true;
+    }
+
+    logger.info(`<<<ValidateData: ${email}`);
+    return result;
+}
 
 /**
  * Busca un usuario por su email, y a continuación comprueba si su password coincide
@@ -13,45 +27,56 @@ const logger = require('../../utils/logger');
  */
 async function getLoggedUserController(req, res, next){
     
-    let user = null;
     let result = getMessage(200, MESSAGES.ERROR.DEFAULT);
     const {email, password} = {...req.body};
-    const query = 'SELECT * FROM users WHERE email = ?';
-    
-    logger.info(`>Check password to user:${email}`);
+    const query = `SELECT * FROM users WHERE email = '${email}'`;
 
-    if (email != null & password != null) {
-        try{
-            const connection = await mysqlPool.getConnection();
-            const result = await connection.query(query, [email]);
-            connection.release();
-            user = result[0];
+    logger.info(`>>>Login email: ${email}`);
 
-            if ((user!=null)) {
-                if (await bcrypt.compare(password,user[0].password)) {
-                    result = getMessage(200, MESSAGES.SUCCESS.USER.GETUSERSUCCESSTEXT);
-                    //Devolvemos el objeto usuario sin password
-                    user[0].password = '';
-                    logger.info(`>>>${email} success logged`);
-                    res.status(200).send(user[0]);
-                }
-                else {
-                    logger.info(`>>>${email} wrong password`);
-                    result = getMessage(401, MESSAGES.ERROR.PASSWORD.WRONGPASSWORDTEXT);
+    try {
+        //Validamos los datos de entrada
+        if (validateData(email)) {
+            let connection = await mysqlPool.getConnection();
+            const data = (await connection.query(query))[0];
+
+            if (data.length === 1) {
+                if ( (data.activated_date === null) || (data.activated_date === undefined) ) {
+                    const correctPassword = await bcrypt.compare(password, data.password);
+
+                    if (!correctPassword) {
+                        result = getMessage(401, MESSAGES.ERROR.LOGIN.INCORRECTPASSWORDTEXT);
+                    } else {
+                        const payloadJwt = {
+                                                uuid: data.email,
+                                                role: (data.rol === 0) ? 0 : 1,
+                                            };
+                        const jwtTokenExpiration = parseInt(process.env.AUTH_ACCESS_TOKEN_TTL, 10);
+                        const token = jwt.sign(payloadJwt, process.env.AUTH_JWT_SECRET, {
+                            expiresIn: jwtTokenExpiration
+                        });
+
+                        result.message = {
+                            accessToken: token,
+                            expiresIn: jwtTokenExpiration,
+                        }
+                    }
+
+                } else {
+                    result = getMessage(401, MESSAGES.ERROR.LOGIN.ACCOUNTNOTACTIVETEXT);
                 }
             } else {
-                logger.info(`>>>${email} is not registered`);
-                result = getMessage(404, MESSAGES.ERROR.USER.GETUSERWITHEMAILERRORTEXT);
+                result = getMessage(400, MESSAGES.ERROR.LOGIN.INCONSISTENTDATATEXT);
             }
-        } catch(e){
-            logger.info(`>>>getLoggedUserController: error`);
-            res.status(404).send(e);
+
+        } else {
+            result = getMessage(400, MESSAGES.ERROR.REQUESTPARAMETERS.INCORRECTPARAMETERSTEXT);
         }
-    } else {
-        logger.info(`>>>Incorrect parameters`);
-        result = getMessage(400, MESSAGES.ERROR.DEFAULT.INCORRECTPARAMETERSTEXT);
+    }catch (e) {
+        logger.error(`>Error in login with mail: ${email}`);
+        result = getMessage(400, MESSAGES.ERROR.LOGIN.ERRORLOGINTEXT);
     }
 
+    logger.info(`<<<Login email: ${email}`);
     res.status(result.status).send(result.message);
 }
 

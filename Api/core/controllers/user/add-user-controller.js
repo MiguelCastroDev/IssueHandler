@@ -38,8 +38,8 @@ async function addUser(req, res, next){
             logger.info(`>>>${user} add error`);
             result = getMessage(400, MESSAGES.ERROR.USER.ADDUSERERRORTEXT);
         }
-        res.status(result.status).send(result.message);
     }
+    res.status(result.status).send(result.message);
 }
 
 module.exports = addUser;
