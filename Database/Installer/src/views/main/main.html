@@ -36,12 +36,24 @@
                     </li>
                 </ul>
             </div>
-            <div class="pane">
-                
+            <div class="pane" style='padding: 5px;'>
+                <div class="form-group">
+                    <label>Dominio base de datos</label>
+                    <input type="text" class="form-control" placeholder="http://localhost">
+                </div>
+                <div class="form-group">
+                    <label>Puerto</label>
+                    <input type="text" class="form-control" placeholder="3036">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-form btn-primary" onclick="checkConnection()">Comprobar conexión</button>
+                    <button type="submit" class="btn btn-form btn-primary">Instalar</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
     <script src="./main.js"></script>
+    <script src="../../../utils/logger.js"></script>
 </body>
 </html>

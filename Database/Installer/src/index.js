@@ -27,7 +27,10 @@ app.on('ready', () => {
         maximizable: false,
         show: false,
         fullscreen: false,
-        icon: path.join(__dirname, 'assets', 'icons', 'main-icon.png')
+        icon: path.join(__dirname, 'assets', 'icons', 'main-icon.png'),
+        webPreferences: {
+            nodeIntegration: true
+        }
     })
     global.win.setMenuBarVisibility(false);
 
