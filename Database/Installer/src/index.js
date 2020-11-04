@@ -10,6 +10,7 @@ if (process.env.NODE_ENV === 'development') {
     devtools()
 }
 
+
 // Evento de salida
 app.on('before-quit', () => {
     
@@ -50,5 +51,5 @@ app.on('ready', () => {
     })
 
     //Carga de una url
-    global.win.loadURL(`file://${__dirname}/views/main/main.html`)
+    global.win.loadURL(`file://${__dirname}/views/main/main.html`);
 })

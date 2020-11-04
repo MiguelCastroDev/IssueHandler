@@ -2,14 +2,14 @@
 
 const mysql = require('mysql2');
 
-async function connect() {
+async function connect(config) {
     const options = {
         connectionLimit: 10,
-        host: process.env.MYSQL_HOST,
-        user: process.env.MYSQL_USER,
-        password: process.env.MYSQL_PASSWORD,
-        database: process.env.MYSQL_DATABASE,
-        port: process.env.MYSQL_PORT,
+        host: config.MYSQL_HOST,
+        user: config.MYSQL_USER,
+        password: config.MYSQL_PASSWORD,
+        database: config.MYSQL_DATABASE,
+        port: config.MYSQL_PORT,
         timezone: 'Z',
         // debug: true,
         multipleStatements: true,
