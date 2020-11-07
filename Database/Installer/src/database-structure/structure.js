@@ -4,8 +4,13 @@ let query = '';
 let step;
 let connection = null;
 
+
+/**
+ * Install basic structure of database
+ */
 async function install() {
     logger.info(`>>>INSTALL`);
+    let result = false;
     step = -1;
 
     try {
@@ -20,6 +25,20 @@ async function install() {
         /////////////////
 
         /////////////////
+        //CREATE VERSION TABLE
+        /////////////////
+        query = `CREATE TABLE IF NOT EXISTS version (` +
+                `datatabase_version INT NOT NULL,` +
+                `updateAt DATETIME NOT NULL,` +
+                `PRIMARY KEY (datatabase_version));`;
+            
+        await connection.query(query);
+        connection.release();
+        step++;
+        logger.info(`>INSTALL ${step}: Version table`);
+        /////////////////
+
+        /////////////////
         //CREATE ROLES TABLE
         /////////////////
         query = `CREATE TABLE IF NOT EXISTS roles (` +
@@ -31,7 +50,7 @@ async function install() {
         await connection.query(query);
         connection.release();
         step++;
-        logger.info(`>>>INSTALL ${step}: Roles table`);
+        logger.info(`>INSTALL ${step}: Roles table`);
         /////////////////
 
         /////////////////
@@ -51,7 +70,7 @@ async function install() {
         await connection.query(query);
         connection.release();
         step++;
-        logger.info(`>>>INSTALL ${step}: Users table`);
+        logger.info(`>INSTALL ${step}: Users table`);
         /////////////////
 
         /////////////////
@@ -78,7 +97,7 @@ async function install() {
         await connection.query(query);
         connection.release();
         step++;
-        logger.info(`>>>INSTALL ${step}: User_Rol table`);
+        logger.info(`>INSTALL ${step}: User_Rol table`);
         /////////////////
 
         /////////////////
@@ -93,7 +112,7 @@ async function install() {
         await connection.query(query);
         connection.release();
         step++;
-        logger.info(`>>>INSTALL ${step}: Issue_Level table`);
+        logger.info(`>INSTALL ${step}: Issue_Level table`);
         /////////////////
 
         /////////////////
@@ -108,7 +127,7 @@ async function install() {
         await connection.query(query);
         connection.release();
         step++;
-        logger.info(`>>>INSTALL ${step}: Issue_Types table`);
+        logger.info(`>INSTALL ${step}: Issue_Types table`);
         /////////////////
 
         /////////////////
@@ -123,7 +142,7 @@ async function install() {
         await connection.query(query);
         connection.release();
         step++;
-        logger.info(`>>>INSTALL ${step}: Project table`);
+        logger.info(`>INSTALL ${step}: Project table`);
         /////////////////
 
         /////////////////
@@ -160,7 +179,7 @@ async function install() {
         await connection.query(query);
         connection.release();
         step++;
-        logger.info(`>>>INSTALL ${step}: Issues table`);
+        logger.info(`>INSTALL ${step}: Issues table`);
         /////////////////
 
         /////////////////
@@ -186,11 +205,40 @@ async function install() {
                 ` ON DELETE NO ACTION`+
                 ` ON UPDATE NO ACTION);`;
             
-    await connection.query(query);
-    connection.release();
-    step++;
-    logger.info(`>>>INSTALL ${step}: Comments table`);
-    /////////////////
+        await connection.query(query);
+        connection.release();
+        step++;
+        logger.info(`>INSTALL ${step}: Comments table`);
+        /////////////////
+
+        /////////////////
+        //CREATE PROJECT_ISSUES TABLE
+        /////////////////
+        query = `CREATE TABLE IF NOT EXISTS project_issues (`+
+                ` id INT NOT NULL AUTO_INCREMENT,`+
+                ` idIssue INT NOT NULL,`+
+                ` idProject INT NOT NULL,`+
+                ` PRIMARY KEY (id),`+
+                ` INDEX fk_idIssueProject_idx (idIssue ASC) VISIBLE,`+
+                ` INDEX fk_idProject_idx (idProject ASC) VISIBLE,`+
+                ` CONSTRAINT fk_idIssueProject`+
+                ` FOREIGN KEY (idIssue)`+
+                ` REFERENCES issues (id)`+
+                ` ON DELETE NO ACTION`+
+                ` ON UPDATE NO ACTION,`+
+                ` CONSTRAINT fk_idProject`+
+                ` FOREIGN KEY (idProject)`+
+                ` REFERENCES project (id)`+
+                ` ON DELETE NO ACTION`+
+                ` ON UPDATE NO ACTION);`;
+            
+        await connection.query(query);
+        connection.release();
+        step++;
+        logger.info(`>INSTALL ${step}: Project_Issues table`);
+        /////////////////
+
+        result = true;
 
     } catch(e) {
         logger.error(`ERROR INSTALL ${step} `+e);
@@ -198,8 +246,39 @@ async function install() {
     }
 
     logger.info(`<<<INSTALL`);
+    return result;
+}
+
+/**
+ * Set version of database
+ * @param {*} valueVersion - New version of database
+ */
+async function setVersion(valueVersion) {
+    logger.info(`>>>SET-VERSION`);
+    let result = false;
+
+    try {
+        await databasePool.connect(config.parsed);
+        connection = await databasePool.getConnection();
+
+        query = `INSERT INTO version ` +
+                `VALUES (${valueVersion}, '${new Date().toISOString().slice(0, 19).replace('T', ' ')}');`;
+            
+        await connection.query(query);
+        connection.release();
+
+        logger.info(`>SET-VERSION: ${valueVersion}`);
+
+        result = true;
+    } catch (e) {
+        logger.error(`ERROR SET-VERSION `+e);
+    }
+
+    logger.info(`<<<SET-VERSION`);
+    return result;
 }
 
 module.exports = {
-    install
+    install,
+    setVersion
 } 
