@@ -13,7 +13,7 @@
             <div class="pane-group">
                 <div class="pane-sm sidebar">
                     <ul class="list-group">
-                        <li class="list-group-item">
+                        <li class="list-group-item selected">
                             <img class="icon icon-install media-object pull-left" src="" width="32" height="32">
                             <div class="media-body">
                                 <strong>Instalación</strong>
@@ -34,11 +34,9 @@
                                 <p>Información de instalacción actual</p>
                             </div>
                         </li>
-                        <li class="list-group-item">
-                            <div class="form-actions" style="margin: auto; width: 50%;">
-                                <button type="submit" class="btn btn-form btn-primary" onclick="install()">Ejecutar</button>
-                            </div>
-                        </li>
+                        <div class="form-actions" style="margin: auto; width: 50%; margin-top: 10px;">
+                            <button id="execute" type="submit" class="btn btn-form btn-primary" onclick="install()">Ejecutar</button>
+                        </div>
                     </ul>
                 </div>
                 <div class="pane-sm" style='padding: 5px;'>
