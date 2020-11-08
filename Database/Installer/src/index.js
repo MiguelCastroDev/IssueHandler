@@ -21,8 +21,8 @@ app.on('ready', () => {
 
     //Creamos y configuramos la ventana principal
     global.win = new BrowserWindow({
-        width: 800,
-        height: 220,
+        width: 750,
+        height: 270,
         title: 'Database software',
         center: true,
         maximizable: false,

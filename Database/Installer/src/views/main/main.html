@@ -11,43 +11,59 @@
     <div class="window">
         <div class="window-content">
             <div class="pane-group">
-            <div class="pane-sm sidebar">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <img class="icon icon-install media-object pull-left" src="" width="32" height="32">
-                        <div class="media-body">
-                            <strong>Instalación</strong>
-                            <p>Nueva instalación de la base de datos</p>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <img class="icon icon-retweet media-object pull-left" src="" width="32" height="32">
-                        <div class="media-body">
-                            <strong>Actualización</strong>
-                            <p>Actualización de la base de datos</p>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <img class="icon icon-info media-object pull-left" src="" width="32" height="32">
-                        <div class="media-body">
-                            <strong>Información</strong>
-                            <p>Información de instalacción actual</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="pane" style='padding: 5px;'>
-                <div class="form-group">
-                    <label>Dominio base de datos</label>
-                    <input id="host" type="text" class="form-control" placeholder="http://localhost">
+                <div class="pane-sm sidebar">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <img class="icon icon-install media-object pull-left" src="" width="32" height="32">
+                            <div class="media-body">
+                                <strong>Instalación</strong>
+                                <p>Nueva instalación de la base de datos</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <img class="icon icon-retweet media-object pull-left" src="" width="32" height="32">
+                            <div class="media-body">
+                                <strong>Actualización</strong>
+                                <p>Actualización de la base de datos</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <img class="icon icon-info media-object pull-left" src="" width="32" height="32">
+                            <div class="media-body">
+                                <strong>Información</strong>
+                                <p>Información de instalacción actual</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="form-actions" style="margin: auto; width: 50%;">
+                                <button type="submit" class="btn btn-form btn-primary" onclick="install()">Ejecutar</button>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="form-group">
-                    <label>Puerto</label>
-                    <input id="port" type="text" class="form-control" placeholder="3036">
+                <div class="pane-sm" style='padding: 5px;'>
+                    <div class="form-group">
+                        <label>Dominio base de datos</label>
+                        <input id="host" type="text" class="form-control" placeholder="127.0.0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>Usuario</label>
+                        <input id="user" type="text" class="form-control" placeholder="Admin">
+                    </div>
+                    <div class="form-group">
+                        <label>Base de datos</label>
+                        <input id="database" type="text" class="form-control" placeholder="AppDB">
+                    </div>
                 </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-form btn-primary" onclick="checkConnection()">Comprobar conexión</button>
-                    <button type="submit" class="btn btn-form btn-primary" onclick="install()">Instalar</button>
+                <div class="pane-sm" style='padding: 5px;'>
+                    <div class="form-group">
+                        <label>Puerto</label>
+                        <input id="port" type="text" class="form-control" placeholder="3306">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input id="pass" type="password" class="form-control" placeholder="**********">
+                    </div>
                 </div>
             </div>
         </div>
