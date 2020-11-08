@@ -2,9 +2,12 @@
   "name": "database-installer",
   "version": "1.0.0",
   "description": "Installer for database in issue handler project",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development electron src/index.js"
+    "dev": "cross-env NODE_ENV=development electron src/index.js",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Miguel Angel Castro Edreira",
   "license": "ISC",
@@ -12,11 +15,48 @@
     "cross-env": "^7.0.2",
     "electron-compile": "^6.4.4",
     "electron-debug": "^3.1.0",
+    "electron-squirrel-startup": "^1.0.0",
     "mysql2": "^2.2.5",
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "devtron": "^1.4.0",
-    "electron-prebuilt-compile": "^8.2.0"
+    "electron-forge": "^5.2.4",
+    "electron-prebuilt-compile": "8.2.0"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm"
+      },
+      "electronWinstallerConfig": {
+        "name": "database_installer"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "databaseinstaller"
+      }
+    }
   }
 }

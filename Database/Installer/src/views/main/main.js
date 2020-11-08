@@ -6,18 +6,27 @@ window.addEventListener('load', () => {
     selectOptionEvent();
 })
 
+/**
+ * Lee información de la base de datos.
+ */
 async function getInfo() {
     logger.info(`>>>GETINFO SELECTED`);
 
     logger.info(`<<<GETINFO SELECTED`);
 }
 
+/**
+ * Actualización de la base de datos.
+ */
 async function update() {
     logger.info(`>>>UPDATE SELECTED`);
 
     logger.info(`<<<UPDATE SELECTED`);
 }
 
+/**
+ * Instalación inicial de la base de datos
+ */
 async function install() {
     logger.info(`>>>INSTALL SELECTED`);
 
@@ -44,6 +53,9 @@ async function install() {
     }
 }
 
+/**
+ * Añade el comportamiento a los elementos del menú lateral para cambio entre opciones
+ */
 function selectOptionEvent() {
     const options = document.querySelectorAll('li.list-group-item');
 
@@ -54,6 +66,10 @@ function selectOptionEvent() {
     }
 }
 
+/**
+ * Añade la clase selected al elemento del menú seleccionado y cambia la funcionalidad al botón
+ * @param {*} node Elemento de menú
+ */
 function changeForm(node) {
     document.querySelector('li.selected').classList.remove('selected');
     node.classList.add('selected');
