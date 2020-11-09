@@ -28,10 +28,11 @@ app.on('ready', () => {
         maximizable: false,
         show: false,
         fullscreen: false,
-        icon: path.join(__dirname, 'assets', 'icons', 'main-icon.png'),
+        icon: '../icons/install-icon.png',
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        resizable: false
     })
     global.win.setMenuBarVisibility(false);
 

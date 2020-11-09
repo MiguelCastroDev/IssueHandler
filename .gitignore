@@ -104,3 +104,6 @@ dist
 
 # Private directory
 Private
+
+# Electron installer
+out

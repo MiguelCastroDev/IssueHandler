@@ -1,5 +1,6 @@
 const logger = require('../../../utils/logger');
-const structure = require('../../database-structure/structure');
+const structure = require('../../database/structure');
+const info = require('../../database/info');
 const BASE_VERSION = 1;
 
 window.addEventListener('load', () => {
@@ -11,6 +12,29 @@ window.addEventListener('load', () => {
  */
 async function getInfo() {
     logger.info(`>>>GETINFO SELECTED`);
+
+    try {
+        var parameters = {
+            MYSQL_USER : document.getElementById('user').value,
+            MYSQL_PASSWORD : document.getElementById('pass').value,
+            MYSQL_HOST : document.getElementById('host').value,
+            MYSQL_PORT : document.getElementById('port').value,
+            MYSQL_DATABASE : document.getElementById('database').value
+        }
+
+        let data = await info.get(parameters);
+
+        if (data != undefined && data!= null)
+        {
+            document.getElementById('version').value = data.version;
+            document.getElementById('date').value = data.date;
+            logger.info(`>GETINFO: Finish`);
+        } else {
+            logger.error(`>GETINFO: Error`);
+        }
+    } catch (e) {
+        logger.error(`>GETINFO: `+e);
+    }
 
     logger.info(`<<<GETINFO SELECTED`);
 }
@@ -44,9 +68,9 @@ async function install() {
         if (succesfullyInstall)
         {
             structure.setVersion(BASE_VERSION, parameters);
-            logger.info(`>>>INSTALL SELECTED: Finish`);
+            logger.info(`>INSTALL SELECTED: Finish`);
         } else {
-            logger.error(`>>>INSTALL SELECTED: Error`);
+            logger.error(`>INSTALL SELECTED: Error`);
         }
     } catch (e) {
         logger.error(`>>>INSTALL SELECTED: `+e);
@@ -73,6 +97,7 @@ function selectOptionEvent() {
 function changeForm(node) {
     document.querySelector('li.selected').classList.remove('selected');
     node.classList.add('selected');
+
     if (node.innerText.includes("Instalación")) {
         document.getElementById('execute').setAttribute("onclick","install()");
     } else if (node.innerText.includes("Actualización")) {

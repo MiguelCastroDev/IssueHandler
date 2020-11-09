@@ -1,5 +1,6 @@
 const logger = require('../../utils/logger');
 const databasePool = require('../../utils/db-pool');
+const notifier = require('node-notifier');
 let query = '';
 let step;
 let connection = null;
@@ -249,9 +250,22 @@ async function install(parameters) {
                 /////////////////
                 
                 result = true;
+
+                notifier.notify({
+                        title: parameters.MYSQL_DATABASE+': Installer',
+                        message: 'Instalación correcta de la base de datos',
+                        icon: '../../icons/install-icon.png'
+                });
+
         } catch(e) {
                 logger.error(`ERROR INSTALL ${step} `+e);
                 step = -1;
+
+                notifier.notify({
+                        title: parameters.MYSQL_DATABASE+': Installer',
+                        message: 'Error de instalación. Revisar log',
+                        icon: '../../icons/install-icon.png'
+                });
         }
 
         logger.info(`<<<INSTALL`);
