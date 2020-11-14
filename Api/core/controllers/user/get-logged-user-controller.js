@@ -41,7 +41,7 @@ async function getLoggedUserController(req, res, next){
 
             if (data.length === 1) {
                 if ( (data.activated_date === null) || (data.activated_date === undefined) ) {
-                    const correctPassword = await bcrypt.compare(password, data.password);
+                    const correctPassword = await bcrypt.compare(password, data[0].password);
 
                     if (!correctPassword) {
                         result = getMessage(401, MESSAGES.ERROR.LOGIN.INCORRECTPASSWORDTEXT);
