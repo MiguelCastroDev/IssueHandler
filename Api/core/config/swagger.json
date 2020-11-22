@@ -1,0 +1,62 @@
+{
+    "swagger" : "2.0",
+    "info": {
+        "description": "Api of Issues handler project",
+        "version": "1.0.0",
+        "title": "Issues handler",
+        "contact": {
+            "email": "info@miguelcastro.net"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+        {
+            "name": "User",
+            "description": "Everything about users"
+        }
+    ],
+    "schemes": ["http", "https"],
+    "paths": {
+        "/user": {
+        "get": {
+            "tags": ["User"],
+            "summary": "Finds All the Users",
+            "description": "",
+            "produces": ["application/json"],
+            "parameters": [
+            {
+                "name": "pageNum",
+                "type": "number",
+                "in": "query",
+                "required": false
+            },
+            {
+                "name": "pageSize",
+                "type": "number",
+                "in": "query",
+                "required": false
+            }
+            ],
+            "responses": {
+                "200": {
+                    "description": "successful operation",
+                    "schema": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/User"
+                    }
+                    }
+                },
+                "400": {
+                    "description": "Invalid status value"
+                    }
+                }
+            }
+        }
+    }
+}
