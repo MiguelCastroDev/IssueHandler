@@ -107,3 +107,6 @@ Private
 
 # Electron installer
 out
+
+# Flamagraph reports
+*.0x
