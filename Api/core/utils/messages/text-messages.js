@@ -9,7 +9,8 @@ const MESSAGES = {
             GETUSERSLISTERRORTEXT : 'No existen usuarios',
             GETSPECIFICUSERSLISTERRORTEXT : 'No existen usuarios con los parámetros indicados',
             GETUSERWITHEMAILERRORTEXT: 'No existe ningún usuario con ese correo',
-            MODIFYUSERERRORTEXT: 'No se ha podido modificar el usuario'
+            MODIFYUSERERRORTEXT: 'No se ha podido modificar el usuario',
+            REMOVEUSERERRORTEXT: 'No se ha podido eliminar el usuario'
         },
         ISSUE : {
             ADDISSUEERRORTEXT : 'No se ha podido añadir el incidente',
@@ -38,7 +39,8 @@ const MESSAGES = {
         USER : {
             ADDUSERSUCCESSTEXT : 'Usuario añadido correctamente',
             GETUSERSUCCESSTEXT : 'Usuario obtenido correctamente',
-            MODIFYUSERSUCCESSTEXT : 'Usuario modificado correctamente'
+            MODIFYUSERSUCCESSTEXT : 'Usuario modificado correctamente',
+            REMOVEUSERSUCCESSTEXT : 'Usuario eliminado correctamente'
         },
         ISSUE : {
             ADDISSUEUCCESSTEXT : 'Incidencia añadida correctamente',

@@ -18,7 +18,7 @@ async function modifyUser(req, res, next){
 
     const query = `UPDATE users SET user = ?, email = ?, password = ? WHERE id = ?`;
 
-    logger.info(`>Add user:${user}`);
+    logger.info(`>Modify user:${user}`);
 
     //Si todos los parametros modificables son null O el id no existe
     if ((!user && !email && !password) || !id)
