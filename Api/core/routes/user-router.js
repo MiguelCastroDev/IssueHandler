@@ -29,7 +29,6 @@ router.post('/user/modify', modifyUser);
 router.post('/user/password/change', changeUserPassword);
 
 //PUT REQUEST
-//Delete es una petición dado que solo se modificara el estado de activo
 //Se mantendra datos del usuario para mantener trazabilidad
 router.put('/user/delete/:id', deleteUser);
 
