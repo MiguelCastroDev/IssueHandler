@@ -1,13 +1,15 @@
 'use strict'
 
-const userRouter = require('./user-router');
 const issueRouter = require('./issue-router');
+const projectRouter = require('./project-router');
 const rolRouter = require('./rol-router');
 const swaggerRouter = require('./swagger-router');
+const userRouter = require('./user-router');
 
 module.exports = {
-    userRouter,
     issueRouter,
+    projectRouter,
     rolRouter,
-    swaggerRouter
+    swaggerRouter,
+    userRouter
 }

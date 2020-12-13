@@ -29,6 +29,13 @@ const MESSAGES = {
         PASSWORD : {
             WRONGPASSWORDTEXT : 'Password incorrecto'
         },
+        PROJECT : {
+            ADDPROJECTERRORTEXT : 'No se ha podido añadir el proyecto',
+            GETISSUEERRORTEXT : 'No se encuentra el proyecto con los parámetros indicados',
+            GETPROJECTSLISTERRORTEXT : 'No existen proyectos',
+            MODIFYPROJECTERRORTEXT: 'No se ha podido modificar el proyecto',
+            REMOVEPROJECTERRORTEXT: 'No se ha podido eliminar el proyecto'
+        },
         REQUESTPARAMETERS : {
             INCORRECTPARAMETERSTEXT : 'Parametros incorrectos'
         },
@@ -56,6 +63,12 @@ const MESSAGES = {
             GETISSUESUCCESSTEXT : 'Incidencia obtenida correctamente',
             MODIFYISSUESUCCESSTEXT : 'Incidencia modificada correctamente',
             REMOVEISSUESUCCESSTEXT : 'Incidencia eliminada correctamente'
+        },
+        PROJECT : {
+            ADDPROJECTSUCCESSTEXT : 'Proyecto añadido correctamente',
+            GETPROJECTSUCCESSTEXT : 'Proyecto obtenido correctamente',
+            MODIFYPROJECTSUCCESSTEXT : 'Proyecto modificado correctamente',
+            REMOVEPROJECTSUCCESSTEXT : 'Proyecto eliminado correctamente'
         },
         ROLES : {
             ADDROLUCCESSTEXT : 'Rol añadido correctamente',
