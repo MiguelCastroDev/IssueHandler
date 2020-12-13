@@ -16,7 +16,9 @@ const MESSAGES = {
             ADDISSUEERRORTEXT : 'No se ha podido añadir el incidente',
             GETISSUEERRORTEXT : 'No se encuentra el incidente con los parámetros indicados',
             GETISSUESLISTERRORTEXT : 'No existen incidentes',
-            GETSPECIFICISSUESLISTERRORTEXT : 'No existen incidentes con los parámetros indicados'
+            GETSPECIFICISSUESLISTERRORTEXT : 'No existen incidentes con los parámetros indicados',
+            MODIFYISSUEERRORTEXT: 'No se ha podido modificar el incidente',
+            REMOVEISSUEERRORTEXT: 'No se ha podido eliminar el incidente'
         },
         LOGIN : {
             ERRORLOGINTEXT : 'Error en el proceso de login',
@@ -24,11 +26,18 @@ const MESSAGES = {
             ACCOUNTNOTACTIVETEXT : 'La cuenta no ha sido activada',
             INCORRECTPASSWORDTEXT : 'Contraseña incorrecta'
         },
+        PASSWORD : {
+            WRONGPASSWORDTEXT : 'Password incorrecto'
+        },
         REQUESTPARAMETERS : {
             INCORRECTPARAMETERSTEXT : 'Parametros incorrectos'
         },
-        PASSWORD : {
-            WRONGPASSWORDTEXT : 'Password incorrecto'
+        ROLES : {
+            ADDROLERRORTEXT : 'No se ha podido añadir el rol',
+            GETROLERRORTEXT : 'No se ha podido obtener el rol con los parámetros indicados',
+            GETROLESERRORTEXT : 'No existen roles',
+            MODIFYROLERRORTEXT : 'No se ha podido modificar el incidente',
+            REMOVEROLERRORTEXT : 'No se ha podido eliminar el rol'
         }
     },
     SUCCESS : {
@@ -43,8 +52,17 @@ const MESSAGES = {
             REMOVEUSERSUCCESSTEXT : 'Usuario eliminado correctamente'
         },
         ISSUE : {
-            ADDISSUEUCCESSTEXT : 'Incidencia añadida correctamente',
-            GETISSUESUCCESSTEXT : 'Incidencia obtenida correctamente'
+            ADDISSUESUCCESSTEXT : 'Incidencia añadida correctamente',
+            GETISSUESUCCESSTEXT : 'Incidencia obtenida correctamente',
+            MODIFYISSUESUCCESSTEXT : 'Incidencia modificada correctamente',
+            REMOVEISSUESUCCESSTEXT : 'Incidencia eliminada correctamente'
+        },
+        ROLES : {
+            ADDROLUCCESSTEXT : 'Rol añadido correctamente',
+            GETROLSUCCESSTEXT : 'Rol obtenido correctamente',
+            GETROLESSUCCESSTEXT : 'Roles obtenidos correctamente',
+            MODIFYROLSUCCESSTEXT : 'Rol modificado correctamente',
+            REMOVEROLSUCCESSTEXT : 'Rol eliminado correctamente'
         }
     },
     CODES : {
