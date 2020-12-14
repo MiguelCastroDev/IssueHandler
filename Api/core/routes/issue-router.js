@@ -19,7 +19,8 @@ router.get('/issue', getIssuesList);
 router.get('/issue/:id', getIssue);
 
 //POST REQUEST
-router.post('/issue/add', addIssue);
+router.post('/issue/add', addIssue.addIssue);
+router.post('/issue/add/:idProject', addIssue.addProjectIssue);
 router.post('/issue/modify', modifyIssue);
 
 //PUT REQUEST
